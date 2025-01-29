@@ -69,6 +69,28 @@
             font-size: 20px; /* Измененный размер текста для результата */
             color: white; /* Измененный цвет текста результата на белый */
         }
+        .button-container {
+            display: flex;
+            justify-content: center; /* Центрирование кнопок */
+            margin-top: 20px; /* Отступ сверху для кнопок */
+        }
+        .custom-button {
+            padding: 12px 20px; /* Внутренние отступы кнопки */
+            background-color: #87CEEB; /* Цвет кнопок - светлый цвет неба */
+            color: white; /* Цвет текста кнопок */
+            border: 2px solid #87CEEB; /* Граница кнопок */
+            border-radius: 25px; /* Округлые углы */
+            text-decoration: none; /* Убираем подчеркивание */
+            margin: 0 10px; /* Отступы между кнопками */
+            font-size: 16px; /* Размер текста кнопок */
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Плавные переходы */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень кнопки */
+        }
+        .custom-button:hover {
+            background-color: #66B2E6; /* Цвет кнопок при наведении */
+            transform: translateY(-2px); /* Подъем кнопки при наведении */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Более выраженная тень при наведении */
+        }
     </style>
 </head>
 <body>
@@ -82,6 +104,11 @@
     <button onclick="searchTrack()">Проверить</button>
     
     <div class="result" id="resultMessage"></div>
+
+    <div class="button-container">
+        <a href="https://t.me/luxcargotj" class="custom-button">Группа Telegram</a>
+        <a href="https://t.me/smvvx" class="custom-button">Написать админу</a>
+    </div>
 
     <script src="trackcodes.js"></script>
     <script>
