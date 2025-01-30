@@ -3,93 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавить трек-коды</title>
+    <title>Добавить трек коды</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
+            margin: 20px;
         }
         textarea {
             width: 100%;
-            height: 150px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        .date-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #218838;
+            height: 100px;
         }
     </style>
 </head>
 <body>
-    <h1>Добавить трек-коды</h1>
-    <form id="trackCodeForm">
-        <div id="inputContainer">
-            <textarea id="trackCodes" placeholder="Введите трек-коды, каждый с новой строки"></textarea>
-            <input type="date" class="date-input" id="arrivalDate" placeholder="Выберите дату прибытия">
-        </div>
-        <button type="submit">Сохранить в trackcodes.js</button>
-    </form>
 
-    <script>
-        document.getElementById('trackCodeForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Предотвращаем отправку формы
+<h1>Добавить трек коды</h1>
 
-            const trackCodesInput = document.getElementById('trackCodes').value;
-            const arrivalDate = document.getElementById('arrivalDate').value;
-            const trackCodesArray = trackCodesInput.split('\n').map(code => {
-                return { code: code.trim(), date: arrivalDate };
-            }).filter(item => item.code); // Убираем пустые строки
+<label for="trackcodes">Введите трек коды (каждый с новой строки):</label><br>
+<textarea id="trackcodes"></textarea><br><br>
 
-            // Здесь должна быть логика для отправки данных на сервер
-            // Например, используя fetch для отправки POST-запроса на сервер
-            fetch('/saveTrackCodes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(trackCodesArray),
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Трек-коды успешно сохранены!');
-            })
-            .catch((error) => {
-                console.error('Ошибка:', error);
-                alert('Произошла ошибка при сохранении трек-кодов.');
-            });
-        });
-    </script>
+<label for="arrivalDate">Выберите дату прибытия:</label><br>
+<input type="date" id="arrivalDate"><br><br>
+
+<button id="saveButton">Сохранить</button>
+
+<script>
+    document.getElementById('saveButton').addEventListener('click', function() {
+        const trackCodes = document.getElementById('trackcodes').value.split('\n').filter(code => code.trim() !== '');
+        const arrivalDate = document.getElementById('arrivalDate').value;
+
+        if (trackCodes.length === 0 || !arrivalDate) {
+            alert('Пожалуйста, введите трек коды и выберите дату прибытия.');
+            return;
+        }
+
+        const data = {
+            trackCodes: trackCodes,
+            arrivalDate: arrivalDate
+        };
+
+        const jsonData = JSON.stringify(data, null, 2);
+        
+        // Для демонстрации сохранения данных в trackcodes.js
+        console.log(jsonData);
+        alert('Данные сохранены в консоль (для реального сохранения используйте серверную часть).');
+        
+        // Здесь вы можете добавить код для отправки jsonData на сервер для сохранения в файл trackcodes.js
+    });
+</script>
+
 </body>
 </html>
