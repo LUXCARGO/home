@@ -12,89 +12,133 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Центрирование по горизонтали */
-            background-color: #0C0150; /* Измененный цвет фона */
-            padding-top: 20px; /* Отступ сверху для первого элемента */
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0C0150, #22096E);
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s ease-out forwards;
         }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         img {
-            max-width: 50%; /* Уменьшенный размер логотипа (в 2 раза меньше) */
-            height: auto; /* Сохранение пропорций */
-            margin-bottom: 10px; /* Уменьшенный отступ между логотипом и заголовком */
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 1s ease-out 0.5s forwards;
         }
-        h1, p, .result {
-            color: white; /* Измененный цвет текста на белый */
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
         h1 {
+            font-size: 28px;
             margin-bottom: 10px;
+            animation: fadeIn 1s ease-out 0.7s forwards;
         }
+
         .search-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 20px;
         }
+
         input[type="text"] {
             width: 300px;
-            padding: 12px; /* Увеличенный внутренний отступ */
-            border: 2px solid #4CAF50; /* Цвет рамки */
-            border-radius: 25px; /* Округлые углы */
+            padding: 14px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            font-size: 18px;
+            text-align: center;
             outline: none;
-            font-size: 19px; /* Измененный размер текста */
-            text-align: center; /* Выравнивание текста по центру */
-            transition: border-color 0.3s; /* Плавный переход для изменения цвета рамки */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         input[type="text"]:focus {
-            border-color: #45a049; /* Цвет рамки при фокусе */
+            border-color: #4CAF50;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
+            transform: scale(1.02);
         }
+
         button {
-            padding: 24px 20px; /* Увеличенная высота кнопки */
-            background-color: #4CAF50;
+            padding: 14px 20px;
+            background: #4CAF50;
             color: white;
-            border: 2px solid #4CAF50; /* Граница с таким же цветом, как у поля */
-            border-radius: 25px; /* Округлые углы */
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Плавные переходы */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень кнопки */
-            height: 60px; /* Увеличенная высота кнопки */
-            margin-top: 20px; /* Отступ сверху для кнопки */
+            font-size: 18px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            margin-top: 15px;
+            transform: scale(1);
         }
+
         button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px); /* Подъем кнопки при наведении */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Более выраженная тень при наведении */
+            background: #45a049;
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.5);
         }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
         .result {
             margin-top: 20px;
-            font-size: 20px; /* Измененный размер текста для результата */
-            color: white; /* Измененный цвет текста результата на белый */
+            font-size: 20px;
+            font-weight: bold;
         }
+
         .button-container {
             display: flex;
-            justify-content: center; /* Центрирование кнопок */
-            margin-top: 20px; /* Отступ сверху для кнопок */
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
         }
+
         .custom-button {
-            padding: 12px 20px; /* Внутренние отступы кнопки */
-            background-color: #87CEEB; /* Цвет кнопок - светлый цвет неба */
-            color: white; /* Цвет текста кнопок */
-            border: 2px solid #87CEEB; /* Граница кнопок */
-            border-radius: 25px; /* Округлые углы */
-            text-decoration: none; /* Убираем подчеркивание */
-            margin: 0 10px; /* Отступы между кнопками */
-            font-size: 16px; /* Размер текста кнопок */
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Плавные переходы */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень кнопки */
+            padding: 12px 18px;
+            background: #87CEEB;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transform: scale(1);
         }
+
         .custom-button:hover {
-            background-color: #66B2E6; /* Цвет кнопок при наведении */
-            transform: translateY(-2px); /* Подъем кнопки при наведении */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Более выраженная тень при наведении */
+            background: #66B2E6;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 255, 0.5);
+        }
+
+        .custom-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <img src="logo.png" alt="Логотип Lux Cargo"> <!-- Логотип -->
+    <img src="logo.png" alt="Логотип Lux Cargo">
     <h1>Lux Cargo</h1>
     <p>Введите трек-код для проверки</p>
     <div class="search-container">
@@ -117,20 +161,20 @@
             const resultMessage = document.getElementById('resultMessage');
             let found = false;
 
-            // Очищаем предыдущее сообщение результата
             resultMessage.textContent = '';
 
-            // Предполагается, что trackcodes.js содержит массив trackCodes
             for (let track of trackCodes) {
                 if (track.code === input) {
-                    resultMessage.innerHTML = `Найден трек-код: <strong>${track.code}</strong><br>Дата прибытия: <strong>${track.date}</strong>`;
+                    resultMessage.innerHTML = `✅ Найден трек-код: <strong>${track.code}</strong><br>📦 Дата прибытия: <strong>${track.date}</strong>`;
+                    resultMessage.style.color = "#4CAF50";
                     found = true;
                     break;
                 }
             }
 
             if (!found) {
-                resultMessage.textContent = 'Трек-код не найден!';
+                resultMessage.innerHTML = '❌ Трек-код не найден!';
+                resultMessage.style.color = "#FF5733";
             }
         }
     </script>
