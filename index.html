@@ -48,7 +48,6 @@
         h1 {
             font-size: 28px;
             margin-bottom: 10px;
-            opacity: 0;
             animation: fadeIn 1s ease-out 0.7s forwards;
         }
 
@@ -105,16 +104,6 @@
             margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .button-container {
@@ -122,8 +111,6 @@
             justify-content: center;
             margin-top: 20px;
             gap: 15px;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 1s forwards;
         }
 
         .custom-button {
@@ -148,17 +135,6 @@
             transform: scale(0.95);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
-
-        @media (max-width: 600px) {
-            input[type="text"], button {
-                width: 90%;
-            }
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -180,15 +156,6 @@
 
     <script src="trackcodes.js"></script>
     <script>
-        let trackCodes = [];
-
-        // Загружаем трек-коды из trackcodes.js
-        document.addEventListener("DOMContentLoaded", function () {
-            if (typeof trackCodesData !== "undefined") {
-                trackCodes = trackCodesData;
-            }
-        });
-
         function searchTrack() {
             const input = document.getElementById('trackInput').value.trim();
             const resultMessage = document.getElementById('resultMessage');
@@ -209,16 +176,7 @@
                 resultMessage.innerHTML = '❌ Трек-код не найден!';
                 resultMessage.style.color = "#FF5733";
             }
-
-            resultMessage.style.animation = "fadeInUp 0.5s ease-out forwards";
         }
-
-        // Поиск при нажатии Enter
-        document.getElementById("trackInput").addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                searchTrack();
-            }
-        });
     </script>
 </body>
-    </html>
+</html>
