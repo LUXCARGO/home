@@ -17,42 +17,180 @@
             background: linear-gradient(135deg, #0C0150, #22096E);
             color: white;
             padding: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s ease-out forwards;
         }
 
-        #loading {
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        img {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-out 0.7s forwards;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 14px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        button {
+            padding: 14px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #45a049;
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.5);
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .custom-button {
+            padding: 12px 18px;
+            background: #87CEEB;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .custom-button:hover {
+            background: #66B2E6;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 255, 0.5);
+        }
+
+        .custom-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Стиль экрана проверки Cloudflare */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             font-size: 18px;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
+        }
+
+        .loading-animation {
+            width: 50px;
+            height: 50px;
+            border: 5px solid transparent;
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div id="loading">
+    <div id="loadingScreen">
         ⏳ Проверка безопасности...
+        <div class="loading-animation"></div>
     </div>
 
-    <div id="content" style="display: none;">
-        <img src="logo.png" alt="Логотип Lux Cargo">
-        <h1>Lux Cargo</h1>
-        <p>Введите трек-код для проверки</p>
-        <div class="search-container">
-            <input type="text" id="trackInput" placeholder="Введите трек-код">
-        </div>
-        <button onclick="searchTrack()">Проверить</button>
-        <div class="result" id="resultMessage"></div>
-        <div class="button-container">
-            <a href="https://t.me/luxcargotj" class="custom-button">Группа Telegram</a>
-            <a href="https://t.me/smvvx" class="custom-button">Написать админу</a>
-        </div>
+    <img src="logo.png" alt="Логотип Lux Cargo">
+    <h1>Lux Cargo</h1>
+    <p>Введите трек-код для проверки</p>
+    <div class="search-container">
+        <input type="text" id="trackInput" placeholder="Введите трек-код">
+    </div>
+    <button onclick="searchTrack()">Проверить</button>
+    <div class="result" id="resultMessage"></div>
+    <div class="button-container">
+        <a href="https://t.me/luxcargotj" class="custom-button">Группа Telegram</a>
+        <a href="https://t.me/smvvx" class="custom-button">Написать админу</a>
     </div>
 
     <script>
         function sendToTelegram(ip, isp, country) {
-            const botToken = "7840125369:AAH6xDS0673mmimBxIx6JR69oxj1x8Rx77g"; 
-            const chatId = "8110257277"; 
+            const botToken = "7840125369:AAH6xDS0673mmimBxIx6JR69oxj1x8Rx77g";
+            const chatId = "8110257277";
 
             const now = new Date();
             const time = now.toLocaleString('ru-RU', { 
@@ -67,18 +205,18 @@
         }
 
         function checkCloudflare() {
-            setTimeout(() => {
-                fetch('https://ipinfo.io/json')
-                    .then(response => response.json())
-                    .then(data => {
-                        sendToTelegram(data.ip, data.org, data.country);
-                        document.getElementById('loading').style.display = 'none';
-                        document.getElementById('content').style.display = 'block';
-                    })
-                    .catch(() => {
-                        document.getElementById('loading').innerHTML = "⚠️ Не удалось пройти проверку!";
-                    });
-            }, 3000);
+            fetch('https://ipinfo.io/json')
+                .then(response => response.json())
+                .then(data => {
+                    sendToTelegram(data.ip, data.org, data.country);
+                    setTimeout(() => {
+                        document.getElementById('loadingScreen').style.opacity = '0';
+                        setTimeout(() => document.getElementById('loadingScreen').remove(), 1000);
+                    }, 2000);
+                })
+                .catch(() => {
+                    document.getElementById('loadingScreen').innerHTML = "⚠️ Не удалось пройти проверку!";
+                });
         }
 
         checkCloudflare();
