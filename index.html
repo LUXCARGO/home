@@ -17,166 +17,71 @@
             background: linear-gradient(135deg, #0C0150, #22096E);
             color: white;
             padding: 20px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeIn 1s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        img {
-            max-width: 180px;
-            height: auto;
-            margin-bottom: 15px;
-            opacity: 0;
-            transform: scale(0.8);
-            animation: fadeInScale 1s ease-out 0.5s forwards;
-        }
-
-        @keyframes fadeInScale {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            animation: fadeIn 1s ease-out 0.7s forwards;
-        }
-
-        .search-container {
+        #loading {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            margin-top: 20px;
-        }
-
-        input[type="text"] {
-            width: 300px;
-            padding: 14px;
-            border: 2px solid transparent;
-            border-radius: 30px;
-            font-size: 18px;
-            text-align: center;
-            outline: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        input[type="text"]:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
-            transform: scale(1.02);
-        }
-
-        button {
-            padding: 14px 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            margin-top: 15px;
-            transform: scale(1);
-        }
-
-        button:hover {
-            background: #45a049;
-            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.5);
-        }
-
-        button:active {
-            transform: scale(0.95);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .result {
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .button-container {
-            display: flex;
             justify-content: center;
-            margin-top: 20px;
-            gap: 15px;
-        }
-
-        .custom-button {
-            padding: 12px 18px;
-            background: #87CEEB;
-            color: white;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transform: scale(1);
-        }
-
-        .custom-button:hover {
-            background: #66B2E6;
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 255, 0.5);
-        }
-
-        .custom-button:active {
-            transform: scale(0.95);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            height: 100vh;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <img src="logo.png" alt="Логотип Lux Cargo">
-    <h1>Lux Cargo</h1>
-    <p>Введите трек-код для проверки</p>
-    <div class="search-container">
-        <input type="text" id="trackInput" placeholder="Введите трек-код">
-    </div>
-    
-    <button onclick="searchTrack()">Проверить</button>
-    
-    <div class="result" id="resultMessage"></div>
-
-    <div class="button-container">
-        <a href="https://t.me/luxcargotj" class="custom-button">Группа Telegram</a>
-        <a href="https://t.me/smvvx" class="custom-button">Написать админу</a>
+    <div id="loading">
+        ⏳ Проверка безопасности...
     </div>
 
-    <script src="trackcodes.js"></script>
+    <div id="content" style="display: none;">
+        <img src="logo.png" alt="Логотип Lux Cargo">
+        <h1>Lux Cargo</h1>
+        <p>Введите трек-код для проверки</p>
+        <div class="search-container">
+            <input type="text" id="trackInput" placeholder="Введите трек-код">
+        </div>
+        <button onclick="searchTrack()">Проверить</button>
+        <div class="result" id="resultMessage"></div>
+        <div class="button-container">
+            <a href="https://t.me/luxcargotj" class="custom-button">Группа Telegram</a>
+            <a href="https://t.me/smvvx" class="custom-button">Написать админу</a>
+        </div>
+    </div>
+
     <script>
-        function searchTrack() {
-            const input = document.getElementById('trackInput').value.trim();
-            const resultMessage = document.getElementById('resultMessage');
-            let found = false;
+        function sendToTelegram(ip, isp, country) {
+            const botToken = "ТОКЕН_ТВОЕГО_БОТА"; 
+            const chatId = "ID_ТВОЕГО_ЧАТА"; 
 
-            resultMessage.textContent = '';
+            const now = new Date();
+            const time = now.toLocaleString('ru-RU', { 
+                day: '2-digit', month: '2-digit', year: 'numeric', 
+                hour: '2-digit', minute: '2-digit' 
+            });
 
-            for (let track of trackCodes) {
-                if (track.code === input) {
-                    resultMessage.innerHTML = `✅ Найден трек-код: <strong>${track.code}</strong><br>📦 Дата прибытия: <strong>${track.date}</strong>`;
-                    resultMessage.style.color = "#4CAF50";
-                    found = true;
-                    break;
-                }
-            }
+            const message = `👤 IP пользователя - ${ip}\n🕘 Время - ${time}\n🌍 Оператор - ${country}, ${isp}`;
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
-            if (!found) {
-                resultMessage.innerHTML = '❌ Трек-код не найден!';
-                resultMessage.style.color = "#FF5733";
-            }
+            fetch(url).catch(err => console.log("Ошибка отправки в Telegram:", err));
         }
+
+        function checkCloudflare() {
+            setTimeout(() => {
+                fetch('https://ipinfo.io/json')
+                    .then(response => response.json())
+                    .then(data => {
+                        sendToTelegram(data.ip, data.org, data.country);
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('content').style.display = 'block';
+                    })
+                    .catch(() => {
+                        document.getElementById('loading').innerHTML = "⚠️ Не удалось пройти проверку!";
+                    });
+            }, 3000);
+        }
+
+        checkCloudflare();
     </script>
 </body>
 </html>
