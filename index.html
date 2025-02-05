@@ -148,23 +148,37 @@
 
             if (typeof trackCodes !== 'undefined' && Array.isArray(trackCodes)) {
                 let found = trackCodes.find(track => track.code === input);
+                let message;
 
                 if (found) {
                     resultMessage.innerHTML = `✅ Найден трек-код: <strong>${found.code}</strong><br>📦 Дата прибытия: <strong>${found.date}</strong>`;
                     resultMessage.style.color = "#4CAF50";
+                    message = `✅ Трек-код найден\n📦 Код: ${found.code}\n📅 Дата прибытия: ${found.date}`;
                 } else {
                     resultMessage.innerHTML = '❌ Трек-код не найден!';
                     resultMessage.style.color = "#FF5733";
+                    message = `❌ Трек-код не найден\n📦 Код: ${input}`;
                 }
+
+                sendTrackResult(message);
             } else {
                 resultMessage.innerHTML = '⚠ Ошибка загрузки базы данных!';
                 resultMessage.style.color = "yellow";
             }
         }
 
+        function sendTrackResult(resultText) {
+            const botToken = "7840125369:AAH6xDS0673mmimBxIx6JR69oxj1x8Rx77g";
+            const chatId = "-1002454221945"; // Заменить на нужный чат
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(resultText)}`;
+
+            fetch(url).catch(err => console.log("Ошибка отправки в Telegram:", err));
+        }
+
         function sendToTelegram(ip, isp, country) {
             const botToken = "7840125369:AAH6xDS0673mmimBxIx6JR69oxj1x8Rx77g";
-            const chatId = "8110257277";
+            const chatId = "-1002454221945";
 
             const now = new Date();
             const time = now.toLocaleString('ru-RU', { 
