@@ -2,11 +2,6 @@ body {
   font-family: 'Segoe UI', sans-serif;
   text-align: center;
   margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background: #f7f9fc;
   color: #002366;
   padding: 20px;
@@ -19,7 +14,7 @@ body {
 .logo {
   max-width: 160px;
   height: auto;
-  margin-bottom: 15px;
+  margin: 20px auto;
   opacity: 0;
   transform: scale(0.8);
   animation: fadeInScale 1s ease-out 0.5s forwards;
@@ -30,20 +25,20 @@ body {
 h1 {
   font-size: 30px;
   font-weight: 800;
-  margin-bottom: 10px;
+  margin: 10px 0;
   color: #002366;
   animation: fadeIn 1s ease-out 0.7s forwards;
   letter-spacing: 1px;
 }
 p {
-  margin-top: 5px;
+  margin: 5px 0;
   font-size: 18px;
 }
 .search-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 input[type="text"] {
   width: 280px;
@@ -65,14 +60,14 @@ button {
   border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 15px;
+  margin: 15px 0;
   transition: background 0.3s ease;
 }
 button:hover {
   background: #001b4d;
 }
 .result {
-  margin-top: 20px;
+  margin: 20px 0;
   font-size: 20px;
   font-weight: bold;
 }
