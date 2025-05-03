@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WANDER CARGO</title>
+  <meta name="keywords" content="Wander Cargo, Вандер Карго, груз, доставка, трек-код" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loadingScreen">
+    ⏳ Проверка безопасности...
+    <div class="loading-animation"></div>
+  </div>
+
+  <img src="logo.png" alt="Логотип Wander Cargo" class="logo" />
+  <h1>WANDER CARGO</h1>
+  <p>Введите трек-код для проверки</p>
+
+  <div class="search-container">
+    <input type="text" id="trackInput" placeholder="Введите трек-код" />
+  </div>
+  <button onclick="searchTrack()">Проверить</button>
+
+  <div class="result" id="resultMessage"></div>
+
+  <script src="trackcodes.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
